@@ -100,9 +100,9 @@ def score1(ans,que):
 
         for idx, distance in results[0:closest_n]:
             print(corpus[idx].strip(), "(Score: %.4f)" % (1-distance))
-            if (1-distance)>=0.9:
+            if (1-distance)>=0.8:
                 correct+=1
-            elif (1-distance)>=0.6:
+            elif (1-distance)>=0.5:
                 correct+=0.5
     for i in range(len(arr)):
         if arr[i][0]==que:
