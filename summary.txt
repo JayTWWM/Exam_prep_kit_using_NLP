@@ -1,0 +1,1 @@
+In supervised learning, the training data provided to the machines work as the supervisor that teaches the machines to predict the output correctly. It applies the same concept as a student learns in the supervision of the teacher.Supervised learning is a process of providing input data as well as correct output data to the machine learning model.
