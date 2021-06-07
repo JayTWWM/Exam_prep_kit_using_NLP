@@ -5,7 +5,6 @@ import json
 import scipy
 from sentence_transformers import SentenceTransformer
 model = SentenceTransformer('bert-base-nli-mean-tokens')
-
   
 app = Flask(__name__)
 app.config["DEBUG"] = True
@@ -17,7 +16,6 @@ for a in data:
     arr.append([a,0])
     qa[a] = data[a]
 f.close()
-
 arr.sort(key=lambda x:x[1])
 que = arr[0][0]
 
@@ -78,26 +76,19 @@ def score(ans,que):
     return marks
 
 def score1(ans,que):
-    # Convert the corpus into a list of headlines
     corpus=[i for i in ans.split('\n')if i != ''and len(i.split(' '))>=4]
-    # Get a vector for each headline (sentence) in the corpus
     corpus_embeddings = model.encode(corpus)
-    # Define search queries and embed them to vectors as well
     answer = qa[que]
     queries = answer.split('.')[:-1]
     query_embeddings = model.encode(queries)
-    # For each search term return 5 closest sentences
     correct = 0 
     closest_n = 1
     for query, query_embedding in zip(queries, query_embeddings):
         distances = scipy.spatial.distance.cdist([query_embedding], corpus_embeddings, "cosine")[0]
-
         results = zip(range(len(distances)), distances)
         results = sorted(results, key=lambda x: x[1])
-
         print("\n\n======================\n\n")
         print("Query:", query)
-
         for idx, distance in results[0:closest_n]:
             print(corpus[idx].strip(), "(Score: %.4f)" % (1-distance))
             if (1-distance)>=0.8:
