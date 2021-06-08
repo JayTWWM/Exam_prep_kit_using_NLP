@@ -104,5 +104,5 @@ def score1(ans,que):
     for i in range(len(arr)):
         if arr[i][0]==que:
             arr[i][1] = correct
-    return correct
+    return 100*correct/len(queries)
 app.run()
