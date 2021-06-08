@@ -1,5 +1,5 @@
 from flask import Flask,request,render_template
-from stt import getKeywords1
+from stt import getKeywords1, punctuate, textSpeech
 from nltk.corpus import wordnet
 import json
 import scipy
@@ -7,7 +7,7 @@ from sentence_transformers import SentenceTransformer
 model = SentenceTransformer('bert-base-nli-mean-tokens')
   
 app = Flask(__name__)
-app.config["DEBUG"] = True
+app.config["DEBUG"] = False
 qa = {}
 f = open(r"D:\Machine Learning\NLP\question.json")
 data = json.load(f)
@@ -21,6 +21,8 @@ que = arr[0][0]
 
 @app.route('/')
 def home():
+    global marks
+    global que
     qa = {}
     f = open(r"D:\Machine Learning\NLP\question.json")
     data = json.load(f)
@@ -33,14 +35,18 @@ def home():
     que = arr[0][0]
     return render_template('index.html',que=que)
 
-@app.route('/predict', methods=['POST'])
+@app.route('/predict')
 def predict():
     global que
-    answer = request.form['body']
-    marks = score1(answer,que)
     arr.sort(key=lambda x:x[1])
     que = arr[0][0]
-    return render_template('index.html',que=que,status=marks)
+    return render_template('index.html',que=que)
+
+@app.route('/result', methods=['POST'])
+def result():
+    answer = punctuate(request.form['body'])
+    marks = score1(answer,que)
+    return render_template('result.html',status=marks)
 
 def score(ans,que):
     ogAns = qa[que]

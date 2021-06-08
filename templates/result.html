@@ -35,7 +35,7 @@
             user-select: none;
         }
         
-        #result1 {
+        #text {
             width: 500px;
             overflow: hidden;
             background-color: #FFF;
@@ -72,8 +72,8 @@
         
         #button {
             cursor: pointer;
-            margin: 20px;
-            /* float: right; */
+            margin-top: 20px;
+            float: right;
             height: 40px;
             padding-left: 24px;
             padding-right: 24px;
@@ -118,71 +118,12 @@
 
 <body>
     <div id="wrapper">
-
-        <form id="paper" action="{{ url_for('result')}}" method="post">
-
-            <h2>{{que}}</h2>
-            <textarea placeholder="Your Answer." id="result1" name="body" rows="5" style="overflow: hidden; word-wrap: break-word; resize: none;"></textarea>
-            <br>
-            <input id="button" type="button" value="Start Recording!" onclick="startConverting();">
-            <input id="button" type="button" value="Stop Recording!" onclick="stopConverting();">
-            <input id="button" type="submit" value="Submit!">
-            <!-- <div id="margin"><strong>Result: {{ status }}</strong></div> -->
-
+        <form id="paper" action="{{ url_for('predict')}}" method="post">
+            <div id="margin"><strong>Result: {{ status }}</strong></div>
+            <input id="button" type="submit" value="Next!">
         </form>
 
-        <!-- <form action = "http://localhost:5000/result" method = "POST">
-            <input type="text" id="result1" size="40" maxlength=100 name = "Name" /></br>
-    <br>
-            <button type = "button" style="position:absolute; left:48%;" onclick="startConverting();"><i class="fa fa-microphone"></i></button>
-            <button type = "button" style="position:absolute; left:51%;" onclick="stopConverting();"><i class="fa fa-remove"></i></button>
-        </br>
-             <p><input type = "submit" value = "submit" /></p>
-          </form> -->
-
     </div>
-    <script type="text/javascript">
-		
-		var overlay = document.getElementById("overlay");
-		
-		
-			var r = document.getElementById('result1');
-			var speechRecognizer = new webkitSpeechRecognition();// a new speech recognition object
-			
-			//function to start listening to voice and then convert it to text
-			function startConverting () {
-				if('webkitSpeechRecognition' in window){
-					speechRecognizer.continuous = true;
-					speechRecognizer.interimResults = true;
-					speechRecognizer.lang = 'en-IN';
-					speechRecognizer.start();
-					var finalTranscripts = '';
-					speechRecognizer.onresult = function(event){
-						var interimTranscripts = '';
-						for(var i = event.resultIndex; i < event.results.length; i++){
-							var transcript = event.results[i][0].transcript;
-							transcript.replace("\n", "<br>");
-							if(event.results[i].isFinal){
-								finalTranscripts += transcript;
-							}else{
-								interimTranscripts += transcript;
-							}
-						}
-						r.value = finalTranscripts + interimTranscripts ;
-					};
-					speechRecognizer.onerror = function (event) {
-					};
-				}else{
-					r.innerHTML = 'No browser support. Please upgrade your browser';
-				}
-			}
-			//function to stop listening
-			function stopConverting()
-			{
-				speechRecognizer.stop();
-			}
-		
-		</script>
 </body>
 
 </html>
