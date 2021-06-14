@@ -14,7 +14,7 @@ data = json.load(f)
 arr = []
 for a in data:
     arr.append([a,0])
-    qa[a][0] = data[a]
+    qa[a] = data[a]
 f.close()
 arr.sort(key=lambda x:x[1])
 que = arr[0][0]
@@ -29,7 +29,7 @@ def home():
     arr = []
     for a in data:
         arr.append([a,0])
-        qa[a][0] = data[a]
+        qa[a] = data[a]
     f.close()
     arr.sort(key=lambda x:x[1])
     que = arr[0][0]
