@@ -18,6 +18,8 @@
         
         body {
             background: #333 url(https://static.tumblr.com/maopbtg/a5emgtoju/inflicted.png) repeat;
+            height: 100%;
+            width: 100%;
         }
         
         #paper {
@@ -120,10 +122,15 @@
     <div id="wrapper">
         <form id="paper" action="{{ url_for('predict')}}">
             <div id="margin"><strong>Result: {{ status }}</strong></div>
+            <br>
             <h1>Expected Answer</h1>
             <h2>{{ ans }}</h2>
+            <br>
             <h1>Explanation</h1>
             <h2>{{ exp }}</h2>
+            <br>
+            <h1>Evaluation</h1>
+            <h2>{{ eval }}</h2>
             <input id="button" type="submit" value="Next!">
         </form>
 
