@@ -14,7 +14,7 @@ data = json.load(f)
 arr = []
 for a in data:
     arr.append([a,0])
-    qa[a] = data[a]
+    qa[a][0] = data[a]
 f.close()
 arr.sort(key=lambda x:x[1])
 que = arr[0][0]
@@ -29,27 +29,27 @@ def home():
     arr = []
     for a in data:
         arr.append([a,0])
-        qa[a] = data[a]
+        qa[a][0] = data[a]
     f.close()
     arr.sort(key=lambda x:x[1])
     que = arr[0][0]
-    return render_template('index.html',que=que)
+    return render_template('index.html',que=que,ans=qa[que][0])
 
 @app.route('/predict')
 def predict():
     global que
     arr.sort(key=lambda x:x[1])
     que = arr[0][0]
-    return render_template('index.html',que=que)
+    return render_template('index.html',que=que,ans=qa[que][0])
 
 @app.route('/result', methods=['POST'])
 def result():
     answer = punctuate(request.form['body'])
     marks = score1(answer,que)
-    return render_template('result.html',status=marks)
+    return render_template('result.html',status=marks,ans=qa[que][0],exp=qa[que][1])
 
 def score(ans,que):
-    ogAns = qa[que]
+    ogAns = qa[que][0]
     ans = getKeywords1(ans)
     ogAns = getKeywords1(ogAns)
     if not ans:
@@ -84,7 +84,7 @@ def score(ans,que):
 def score1(ans,que):
     corpus=[i for i in ans.split('\n')if i != ''and len(i.split(' '))>=4]
     corpus_embeddings = model.encode(corpus)
-    answer = qa[que]
+    answer = qa[que][0]
     queries = answer.split('.')[:-1]
     query_embeddings = model.encode(queries)
     correct = 0 

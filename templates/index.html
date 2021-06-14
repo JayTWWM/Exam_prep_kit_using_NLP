@@ -36,7 +36,8 @@
         }
         
         #result1 {
-            width: 500px;
+            width: 80%;
+            height: 60%;
             overflow: hidden;
             background-color: #FFF;
             color: #222;
@@ -50,7 +51,7 @@
             padding-top: 45px;
             padding-bottom: 34px;
             background-image: url(https://static.tumblr.com/maopbtg/E9Bmgtoht/lines.png), url(https://static.tumblr.com/maopbtg/nBUmgtogx/paper.png);
-            background-repeat: repeat-y, repeat;
+            background-repeat: repeat;
             -webkit-border-radius: 12px;
             border-radius: 12px;
             -webkit-box-shadow: 0px 2px 14px #000;
@@ -105,8 +106,8 @@
         }
         
         #wrapper {
-            width: 700px;
-            height: auto;
+            width: 90%;
+            height: 100%;
             margin-left: auto;
             margin-right: auto;
             margin-top: 24px;
@@ -122,12 +123,13 @@
         <form id="paper" action="{{ url_for('result')}}" method="post">
 
             <h2>{{que}}</h2>
-            <textarea placeholder="Your Answer." id="result1" name="body" rows="5" style="overflow: hidden; word-wrap: break-word; resize: none;"></textarea>
+            <textarea placeholder="Your Answer." id="result1" name="body" rows="15" style="overflow: hidden; word-wrap: break-word; resize: both;"></textarea>
             <br>
             <input id="button" type="button" value="Start Recording!" onclick="startConverting();">
             <input id="button" type="button" value="Stop Recording!" onclick="stopConverting();">
             <input id="button" type="submit" value="Submit!">
             <!-- <div id="margin"><strong>Result: {{ status }}</strong></div> -->
+            <!-- <h2>{{ ans }}</h2> -->
 
         </form>
 

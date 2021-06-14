@@ -120,6 +120,10 @@
     <div id="wrapper">
         <form id="paper" action="{{ url_for('predict')}}">
             <div id="margin"><strong>Result: {{ status }}</strong></div>
+            <h1>Expected Answer</h1>
+            <h2>{{ ans }}</h2>
+            <h1>Explanation</h1>
+            <h2>{{ exp }}</h2>
             <input id="button" type="submit" value="Next!">
         </form>
 
